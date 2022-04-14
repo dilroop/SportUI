@@ -1,5 +1,6 @@
 package com.dsb.sports.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.dsb.sports.models.Sport
+import java.lang.IllegalStateException
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -46,6 +48,9 @@ class SportSelectionStrategy {
     }
 
     fun refreshRandom() {
+        if (!::refreshListener.isInitialized) {
+            throw IllegalStateException("Strategy should be registered with the SportsView.")
+        }
         refreshListener()
     }
 }
