@@ -1,17 +1,17 @@
 package com.dsb.sports.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.dsb.sports.models.Sport
-import java.lang.IllegalStateException
+import com.dsb.sports.models.SportSaver
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -30,7 +30,7 @@ fun SportsView(
         return sports[index]
     }
 
-    var sport: Sport by remember { mutableStateOf(selectRandom()) }
+    var sport: Sport = rememberSaveable(saver = SportSaver()) { selectRandom() }
     strategy.onSelectionUpdated {
         sport = selectRandom()
     }
